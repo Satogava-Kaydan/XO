@@ -1,0 +1,586 @@
+:root {
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    --secondary: #4CAF50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --dark: #2d3748;
+    --light: #f7fafc;
+    --gray: #718096;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.icon {
+    font-size: 1.2em;
+}
+
+/* Карточки */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Игровой контейнер */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Лобби */
+.lobby {
+    display: block;
+}
+
+.lobby.active {
+    display: block;
+}
+
+.lobby:not(.active) {
+    display: none;
+}
+
+/* Кнопки */
+.btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: var(--warning);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 14px;
+    width: auto;
+}
+
+/* Разделитель */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--gray);
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--gray);
+    opacity: 0.3;
+}
+
+.divider span {
+    padding: 0 15px;
+}
+
+/* Ввод комнаты */
+.join-section {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.join-section input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: monospace;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.join-section input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Инструкции */
+.instructions {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7fafc;
+    border-radius: 10px;
+}
+
+.instructions h3 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.instructions ol {
+    padding-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Игровая комната */
+.game-room {
+    display: none;
+}
+
+.game-room.active {
+    display: block;
+}
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.room-id {
+    font-family: monospace;
+    font-size: 1.2em;
+    background: #f0f4ff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: var(--primary);
+}
+
+.player-info {
+    font-size: 1.1em;
+}
+
+/* Ссылка */
+.link-container {
+    background: #f0f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.link-box {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.game-link {
+    flex: 1;
+    padding: 12px 15px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--primary);
+    font-family: monospace;
+    word-break: break-all;
+    font-size: 14px;
+}
+
+.game-link:hover {
+    border-color: var(--primary);
+}
+
+.help-text {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 10px;
+}
+
+/* Игровая информация */
+.game-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.status {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.turn-info {
+    font-size: 1.1em;
+}
+
+/* Игровое поле */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 30px 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cell {
+    aspect-ratio: 1;
+    background: white;
+    border: 3px solid #e2e8f0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cell:hover:not(.disabled) {
+    background: #f7fafc;
+    transform: scale(1.05);
+}
+
+.cell.x {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.cell.o {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.cell.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Символы */
+.symbol-x {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.symbol-o {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* Управление */
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Чат */
+.chat-container {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+    border-left: 4px solid var(--primary);
+}
+
+.message.system {
+    background: #e3f2fd;
+    border-left-color: #2196F3;
+    font-style: italic;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    color: white;
+    padding-top: 20px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.server-status {
+    margin-bottom: 15px;
+}
+
+.status-online {
+    color: #4CAF50;
+}
+
+.status-offline {
+    color: #ff9800;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.8;
+}
+
+.btn-link:hover {
+    opacity: 1;
+}
+
+.copyright {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Уведомления */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--dark);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateX(150%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-width: 400px;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: var(--secondary);
+}
+
+.notification.error {
+    background: var(--danger);
+}
+
+.notification.warning {
+    background: var(--warning);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.modal-body h3 {
+    margin: 15px 0 10px 0;
+    color: var(--primary);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .join-section {
+        flex-direction: column;
+    }
+    
+    .room-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .cell {
+        font-size: 2.5em;
+    }
+    
+    .game-board {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+    }
+    
+    .game-board {
+        max-width: 280px;
+    }
+    
+    .cell {
+        font-size: 2em;
+    }
+}
