@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики-Нолики онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❌</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="icon">❌</span> Крестики-Нолики онлайн <span class="icon">⭕</span></h1>
+            <p class="subtitle">Играйте с друзьями в реальном времени</p>
+        </header>
+
+        <div class="game-container">
+            <!-- Лобби -->
+            <div class="lobby active" id="lobby">
+                <div class="card">
+                    <h2><span class="icon">🏠</span> Создать игру</h2>
+                    <button id="createRoomBtn" class="btn btn-primary">
+                        <span class="icon">✨</span> Создать новую комнату
+                    </button>
+                    
+                    <div class="divider">
+                        <span>или</span>
+                    </div>
+                    
+                    <h2><span class="icon">🔗</span> Присоединиться</h2>
+                    <div class="join-section">
+                        <input type="text" id="roomIdInput" placeholder="Введите ID комнаты" maxlength="6">
+                        <button id="joinRoomBtn" class="btn btn-secondary">
+                            <span class="icon">🎮</span> Присоединиться
+                        </button>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h3><span class="icon">📱</span> Как играть:</h3>
+                        <ol>
+                            <li>Создайте комнату</li>
+                            <li>Скопируйте ссылку или ID</li>
+                            <li>Отправьте другу</li>
+                            <li>Играйте!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Игровая комната -->
+            <div class="game-room" id="gameRoom">
+                <div class="card">
+                    <div class="room-header">
+                        <h2><span class="icon">🚪</span> Комната: <span id="roomIdDisplay" class="room-id">---</span></h2>
+                        <div class="player-info">
+                            Ваш символ: <span id="playerSymbol" class="symbol-x">X</span>
+                        </div>
+                    </div>
+                    
+                    <div class="link-container" id="linkContainer">
+                        <p><span class="icon">🔗</span> Ссылка для друга:</p>
+                        <div class="link-box">
+                            <a href="#" id="gameLink" target="_blank" class="game-link"></a>
+                            <button id="copyLinkBtn" class="btn btn-small">
+                                <span class="icon">📋</span> Копировать
+                            </button>
+                        </div>
+                        <p class="help-text">Отправьте эту ссылку другу или откройте в другом окне</p>
+                    </div>
+                    
+                    <div class="game-info">
+                        <div class="status" id="gameStatus">Ожидание игрока...</div>
+                        <div class="turn-info">
+                            Сейчас ходит: <span id="currentPlayer" class="symbol-x">X</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Игровое поле -->
+                    <div class="game-board" id="gameBoard">
+                        <!-- Заполнится через JS -->
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="restartBtn" class="btn btn-warning">
+                            <span class="icon">🔄</span> Новая игра
+                        </button>
+                        <button id="leaveRoomBtn" class="btn btn-danger">
+                            <span class="icon">🚪</span> Выйти
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Чат -->
+            <div class="chat-container" id="chatContainer">
+                <div class="card">
+                    <h3><span class="icon">💬</span> Чат</h3>
+                    <div class="messages" id="chatMessages">
+                        <div class="message system">Добро пожаловать! Создайте комнату или присоединитесь к существующей.</div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Введите сообщение...">
+                        <button id="sendMessageBtn" class="btn btn-small">
+                            <span class="icon">📤</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="server-status">
+                <span id="connectionStatus" class="status-offline">● Отключено</span>
+            </div>
+            <div class="footer-links">
+                <button id="shareBtn" class="btn-link">
+                    <span class="icon">📤</span> Поделиться игрой
+                </button>
+                <button id="howToPlayBtn" class="btn-link">
+                    <span class="icon">❓</span> Как играть
+                </button>
+            </div>
+            <p class="copyright">© 2024 Крестики-Нолики онлайн</p>
+        </footer>
+    </div>
+
+    <!-- Уведомления -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="howToPlayModal">
+        <div class="modal-content">
+            <h2><span class="icon">🎮</span> Как играть</h2>
+            <div class="modal-body">
+                <h3>👥 Для игры вдвоем:</h3>
+                <ol>
+                    <li>Один игрок создает комнату</li>
+                    <li>Копирует ссылку или ID комнаты</li>
+                    <li>Отправляет другу</li>
+                    <li>Второй игрок вводит ID или переходит по ссылке</li>
+                    <li>Игра начинается автоматически</li>
+                </ol>
+                
+                <h3>🎯 Правила:</h3>
+                <ul>
+                    <li>Игрок "X" ходит первым</li>
+                    <li>По очереди ставьте свои символы</li>
+                    <li>Цель: составить линию из 3 символов</li>
+                    <li>Линия может быть горизонтальной, вертикальной или диагональной</li>
+                </ul>
+                
+                <h3>🔗 Ссылки:</h3>
+                <p>Поделитесь ссылкой с другом для игры. Ссылка содержит ID комнаты.</p>
+            </div>
+            <button class="btn btn-primary close-modal">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Подключение Socket.io -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="game.js"></script>
+    
+    <!-- Аналитика (опционально) -->
+    <script>
+        // Простая аналитика
+        window.addEventListener('load', () => {
+            console.log('🎮 Крестики-Нолики загружены');
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(console.log);
+            }
+        });
+    </script>
+</body>
+</html>
